@@ -1,3 +1,5 @@
+#!/bin/bash
+
 docker run -d --rm \
 	--name local_test \
  	--env-file .env \

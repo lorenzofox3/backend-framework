@@ -36,8 +36,12 @@ export const createTransferMoneyCommand =
     assert(fromAccount, 'origin account does not exist');
     assert(toAccount, 'target account does not exist');
 
-    const newToBalance = fromAccount.balance + amount;
+    const newToBalance = toAccount.balance + amount;
     const newFromBalance = fromAccount.balance - amount;
+
+    if (newFromBalance < 0) {
+      throw new Error('fund insufficient');
+    }
 
     await Promise.all([
       bankAccountService.updateBalance({
